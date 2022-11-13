@@ -21,7 +21,7 @@ const actions = {
     }
   },
 }
-//计算属性,在项目当中,为了简化数据而生
+//计算属性,在项目当中,为了简化数据
 const getters = {}
 export default {
   state,
