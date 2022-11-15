@@ -5,21 +5,21 @@
       <ul class="recommend">
         <li class="clock">
           <div class="time">
-            <img src="./images/home/clock.png" />
+            <img src="./images/clock.png" />
             <h3>今日推荐</h3>
           </div>
         </li>
         <li class="banner">
-          <img src="./images/home/today01.png" />
+          <img src="./images/today01.png" />
         </li>
         <li class="banner">
-          <img src="./images/home/today02.png" />
+          <img src="./images/today02.png" />
         </li>
         <li class="banner">
-          <img src="./images/home/today03.png" />
+          <img src="./images/today03.png" />
         </li>
         <li class="banner">
-          <img src="./images/home/today04.png" />
+          <img src="./images/today04.png" />
         </li>
       </ul>
     </div>
@@ -31,7 +31,7 @@ export default {
   name: 'TodayTecommend'
 }
 </script>
-<style lang="less" scoped>
+<style scoped lang="less">
 .today-recommend {
   .py-container {
     width: 1200px;

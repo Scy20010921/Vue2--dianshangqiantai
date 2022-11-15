@@ -120,12 +120,10 @@ export default {
         //一级分类、二级分类、三级分类的a标签
         if (category1id) {                  //如果跳转的是一级路由
           query.category1Id = category1id   //将点击的第几个赋值给query 比如把1给query
-
         } else if (category2id) {
           query.category2Id = category2id
-
         } else {
-          query.category3id = category3id
+          query.category3Id = category3id
         }
         //判断:如果路由跳转的时候,带有params参数,捎带脚传递过去
         if (this.$route.params) {
