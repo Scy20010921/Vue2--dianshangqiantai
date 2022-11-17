@@ -49,7 +49,9 @@
               <li class="yui3-u-1-5" v-for="(good,index) in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+                    <!-- target="_blank" 新建链接跳转 -->
+                    <!-- 在路由跳转的时候别忘记带ID -->
+                    <router-link :to="`/detail/${good.id}`"><img :src="good.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -73,7 +75,8 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination :pageNo="1" :pageSize="3" :total="91" :continues="5"></Pagination>
+          <!-- pageNo:当前第几个 pageSize代表每一页展示多少条数据 /total:代表整个分页一共要展示多少条数据 continues:代表分页连续页码个数 -->
+          <Pagination :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @getPageNo="getPageNo"></Pagination>
         </div>
       </div>
     </div>
@@ -82,7 +85,7 @@
 
 <script>
 // import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import SearchSelector from './SearchSelector/SearchSelector'
 export default {
   name: 'Search',
@@ -106,9 +109,9 @@ export default {
         //排序:初始的状态应该是综合|降序
         order: "1:desc",
         //分页器用的参数,代表的是当前第几页
-        pageNo: 1,
+        pageNo: 5,
         //代表的是每一个展示数据的个数
-        pageSize: 10,
+        pageSize: 2,
         //平台售卖属性操作带的参数
         props: [],
         //品牌
@@ -222,6 +225,11 @@ export default {
       }
       this.searchParams.order = newOrder
       this.getaDate();
+    },
+    //自定义事件 回调函数 获取当前第几页
+    getPageNo(PageNo) {
+      this.searchParams.pageNo = PageNo
+      this.getaDate()
     }
 
   },
@@ -242,7 +250,11 @@ export default {
     },
     isDesc() {
       return this.searchParams.order.indexOf('desc') != -1
-    }
+    },
+    //获取search模块展示产品一共多少条数据
+    ...mapState({
+      total: state => state.search.searchList.total
+    })
   },
   //数据监听:监听组件实例身上的属性的属性值变化
   watch: {
