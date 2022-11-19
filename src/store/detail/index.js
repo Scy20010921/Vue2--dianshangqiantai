@@ -1,6 +1,10 @@
 import { reqGoodsInfo, reqAddOrUpdateShopCart } from '@/api'
+// 封装游客身份模块uuid--->生成一个随机字符串(不能在变了)
+import { getUUID } from '@/utils/uuid_token.js'
 const state = {
   goodInfo: {},
+  // 游客临时身份
+  uuid_token: getUUID(),
 }
 const mutations = {
   GETGOODINFO(state, goodInfo) {
@@ -14,7 +18,6 @@ const actions = {
     let result = await reqGoodsInfo(skuId)
     console.log(result.code)
     if (result.code == 200) {
-      console.log(result.data)
       commit('GETGOODINFO', result.data)
     }
   },

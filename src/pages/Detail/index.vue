@@ -338,7 +338,7 @@ import ImageList from './ImageList/ImageList'
 import Zoom from './Zoom/Zoom'
 
 export default {
-  name: 'Detail',
+  name: "Detai",
   data() {
     return {
       //购买产品的个数
@@ -378,6 +378,13 @@ export default {
       try {
         await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum });
         //路由跳转
+        //进行路由跳转
+        //在路由跳转的时候还需要将产品的信息带给下一级
+        //下面这种手段路由跳转一级传递参数可以
+        // 本地存储|会话存储,一般存储的是字符串
+        sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo))
+        // this.$router.push({ name: 'addCartSuccess', query: { skuInfo: this.skuInfo, skuNum: this.skuNum } });
+        this.$router.push({ name: 'addCartSuccess', query: { skuNum: this.skuNum } });
       } catch (error) {
         alert(error.message)
       }
