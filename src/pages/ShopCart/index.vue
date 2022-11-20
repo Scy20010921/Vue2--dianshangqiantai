@@ -41,11 +41,11 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllCheck">
+        <input class="chooseAll" type="checkbox" :checked="isAllCheck&&cartInfoList.length>0" @click="updateAllCartChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a href="#" @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -124,6 +124,29 @@ export default {
         this.getData()
       } catch (error) {
         alert(error.message)
+      }
+    },
+    //删除所有选中的产品
+    //这个回调函数咱们没办法收集到一些有用数据
+    async deleteAllCheckedCart() {
+      //派发一个action
+      try {
+        await this.$store.dispatch('deleteAllCheckedCart');
+        // 再发请求获取购物车列表
+        this.getData()
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //修改全部产品的选中状态
+    async updateAllCartChecked(event) {
+      try {
+        let isChecked = event.target.checked ? "1" : "0"
+        //派发action
+        await this.$store.dispatch('updateAllCartIsChecked', isChecked)
+        this.getData()
+      } catch (error) {
+        console.log(error);
       }
     }
   },
